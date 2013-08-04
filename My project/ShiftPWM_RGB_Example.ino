@@ -45,6 +45,7 @@ int numRegisters = 1;
 int numRGBleds = numRegisters*8/3;
 
 const int transistor_pin = 5;
+int trans2 = 3;
 void setup(){
   Serial.begin(9600);
 
@@ -59,9 +60,14 @@ void setup(){
 
 
   pinMode(transistor_pin, OUTPUT);     
+  pinMode(trans2, OUTPUT);     
 
 
   ShiftPWM.SetAll(255);
+
+  ShiftPWM.SetOne(2,255);
+  ShiftPWM.SetOne(1,255);
+  ShiftPWM.SetOne(7,255);
 
 }
 
@@ -74,18 +80,28 @@ void loop()
  //  ShiftPWM.SetOne(1,255);
  //  ShiftPWM.SetOne(7,255);
 
-  digitalWrite(transistor_pin, LOW);
 
- delay(1000);
-  digitalWrite(transistor_pin, HIGH);
+ delay(1);
+
+
+  PORTD &= ~_BV(PD5);
 
  //  ShiftPWM.SetOne(0,255);
  //  ShiftPWM.SetOne(6,255);
  //  ShiftPWM.SetOne(5,255);
 
 
- delay(1000);
+ delay(1);
 
+  PORTD |= _BV(PD5);
+
+  PORTD &= ~_BV(PD3);
+
+delay(1);
+
+  PORTD |= _BV(PD3);
+
+ delay(1);
 
 }
 
