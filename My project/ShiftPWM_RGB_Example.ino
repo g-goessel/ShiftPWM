@@ -41,9 +41,10 @@ const bool ShiftPWM_balanceLoad = false;
 
 unsigned char maxBrightness = 255;
 unsigned char pwmFrequency = 75;
-int numRegisters = 2;
+int numRegisters = 1;
 int numRGBleds = numRegisters*8/3;
 
+const int transistor_pin = 5;
 void setup(){
   Serial.begin(9600);
 
@@ -52,35 +53,38 @@ void setup(){
 
   // SetPinGrouping allows flexibility in LED setup. 
   // If your LED's are connected like this: RRRRGGGGBBBBRRRRGGGGBBBB, use SetPinGrouping(4).
-  ShiftPWM.SetPinGrouping(1); //This is the default, but I added here to demonstrate how to use the funtion
+     ShiftPWM.SetPinGrouping(1); //This is the default, but I added here to demonstrate how to use the funtion
   
   ShiftPWM.Start(pwmFrequency,maxBrightness);
+
+
+  pinMode(transistor_pin, OUTPUT);     
+
+
+  ShiftPWM.SetAll(255);
+
 }
 
 
 
 void loop()
 {    
-  // Turn all LED's off.
-  ShiftPWM.SetAll(0);
 
-  // Print information about the interrupt frequency, duration and load on your program
-  ShiftPWM.PrintInterruptLoad();
+ //  ShiftPWM.SetOne(2,255);
+ //  ShiftPWM.SetOne(1,255);
+ //  ShiftPWM.SetOne(7,255);
 
-  // Fade in and fade out all outputs one by one fast. Usefull for testing your hardware. Use OneByOneSlow when this is going to fast.
-  ShiftPWM.OneByOneSlow();
+  digitalWrite(transistor_pin, LOW);
 
-  // Fade in all outputs
-  for(int j=0;j<maxBrightness;j++){
-    ShiftPWM.SetAll(j);  
-    delay(20);
-  }
-  // Fade out all outputs
-  for(int j=maxBrightness;j>=0;j--){
-    ShiftPWM.SetAll(j);  
-    delay(20);
-  }
+ delay(1000);
+  digitalWrite(transistor_pin, HIGH);
 
+ //  ShiftPWM.SetOne(0,255);
+ //  ShiftPWM.SetOne(6,255);
+ //  ShiftPWM.SetOne(5,255);
+
+
+ delay(1000);
 
 
 }
