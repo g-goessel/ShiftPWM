@@ -8,7 +8,7 @@
  ************************************************************************************************************************************/
  
 // ShiftPWM uses timer1 by default. To use a different timer, before '#include <ShiftPWM.h>', add
-// #define SHIFTPWM_USE_TIMER2  // for Arduino Uno and earlier (Atmega328)
+#define SHIFTPWM_USE_TIMER2  // for Arduino Uno and earlier (Atmega328)
 // #define SHIFTPWM_USE_TIMER3  // for Arduino Micro/Leonardo (Atmega32u4)
 
 // Clock and data pins are pins from the hardware SPI, you cannot choose them yourself if you use the hardware SPI.
