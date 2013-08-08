@@ -39,9 +39,9 @@ const bool ShiftPWM_balanceLoad = false;
 // Choose them wisely and use the PrintInterruptLoad() function to verify your load.
 // There is a calculator on my website to estimate the load.
 
-unsigned char maxBrightness = 255;
-unsigned char pwmFrequency = 75;
-int numRegisters = 1;
+unsigned char maxBrightness = 200;
+unsigned char pwmFrequency = 70;
+int numRegisters = 8;
 int numRGBleds = numRegisters*8/3;
 
 const int transistor_pin = 5;
