@@ -195,7 +195,7 @@ void CShiftPWM::OneByOneFast(void){
 void CShiftPWM::OneByOne_core(int delaytime){
 	int pin,brightness;
 	SetAll(0);
-	for(int pin=0;pin<m_amountOfOutputs;pin++){
+	for(pin=0;pin<m_amountOfOutputs;pin++){
 		for(brightness=0;brightness<m_maxBrightness;brightness++){
 			m_PWMValues[pin]=brightness;
 			delay(delaytime);
