@@ -14,6 +14,11 @@
 
  */
 
+// This potentiometer allows us to manually control the max intensity
+// It must be plugged to an analog input
+// For the change to be effective you need to reset the board
+const int Potentiometer_pin = A0;
+
 // ShiftPWM uses timer1 by default. To use a different timer, before '#include <ShiftPWM.h>', add
 #define SHIFTPWM_USE_TIMER2  // for Arduino Uno and earlier (Atmega328)
 // #define SHIFTPWM_USE_TIMER3  // for Arduino Micro/Leonardo (Atmega32u4)
@@ -46,7 +51,7 @@ const bool ShiftPWM_balanceLoad = false;
 // Choose them wisely and use the PrintInterruptLoad() function to verify your load.
 // There is a calculator on my website to estimate the load.
 
-unsigned char maxBrightness = 255;
+unsigned char maxBrightness = analogRead(Potentiometer_pin)*255/1023;
 unsigned char pwmFrequency = 75;
 int numRegisters = 1;
 int numRGBleds = numRegisters*8/3;
