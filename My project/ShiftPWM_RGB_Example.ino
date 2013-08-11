@@ -7,21 +7,12 @@
  * If you want to use ShiftPWM with LED strips or high power LED's, visit the shop for boards.
  ************************************************************************************************************************************/
  
- #define TRANS_1 PD2
- #define TRANS_1_LOW  PORTD &= ~_BV(TRANS_1);
- #define TRANS_1_HIGH  PORTD |= _BV(TRANS_1);
+/* IMPORTANT !!!!!
+ * This is the setup to control the layers
 
- #define TRANS_2 PD3
- #define TRANS_2_LOW  PORTD &= ~_BV(TRANS_2);
- #define TRANS_2_HIGH  PORTD |= _BV(TRANS_2);
+ NEED TO FILL IT WITH THE TRANSISTORS CONFIGURATION !!!
 
- #define TRANS_3 PD4
- #define TRANS_3_LOW  PORTD &= ~_BV(TRANS_3);
- #define TRANS_3_HIGH  PORTD |= _BV(TRANS_3);
-
- #define TRANS_4 PD5
- #define TRANS_4_LOW  PORTD &= ~_BV(TRANS_4);
- #define TRANS_4_HIGH  PORTD |= _BV(TRANS_4);
+ */
 
 // ShiftPWM uses timer1 by default. To use a different timer, before '#include <ShiftPWM.h>', add
 #define SHIFTPWM_USE_TIMER2  // for Arduino Uno and earlier (Atmega328)
@@ -48,7 +39,6 @@ const bool ShiftPWM_invertOutputs = true;
 // This will be a bit easier on your power supply, because the current peaks are distributed.
 const bool ShiftPWM_balanceLoad = false;
 
-#include <ShiftPWM.h> 
 #include <ShiftPWM.h>   // include ShiftPWM.h after setting the pins!
 
 // Here you set the number of brightness levels, the update frequency and the number of shift registers.
@@ -86,33 +76,5 @@ void setup(){
 
    void loop(){
 
-    for(int i=1;i<3;i++){
-    hauteur(i);
-    delay(995);
+    ShiftPWM.SetRGB(0,255,255,255,2);
   }
-}
-
-  void hauteur(int layer){
-   switch(layer) {
-    case 0:
-    PORTD = B00111100;
-    break;
-
-    case 1:
-    PORTD = B00111000;
-    break;
-
-    case 2:
-    PORTD = B00110100;
-    break;
-
-    case 3:
-    PORTD = B00101100;
-    break;
-
-    case 4:
-    PORTD = B00011100;
-    break;
-  }
-
-}

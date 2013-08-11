@@ -43,7 +43,7 @@ public:
 	void SetGroupOf4(int group, unsigned char v0, unsigned char v1, unsigned char v2, unsigned char v3, int offset = 0);
 	void SetGroupOf5(int group, unsigned char v0, unsigned char v1, unsigned char v2, unsigned char v3, unsigned char v4, int offset = 0);
 
-	void SetRGB(int led, unsigned char r,unsigned char g,unsigned char b, int offset = 0);
+	void SetRGB(int led, unsigned char r,unsigned char g,unsigned char b,unsigned char ligne, int offset = 0);
 	void SetAllRGB(unsigned char r,unsigned char g,unsigned char b);
 	void SetHSV(int led, unsigned int hue, unsigned int sat, unsigned int val, int offset = 0);
 	void SetAllHSV(unsigned int hue, unsigned int sat, unsigned int val);
@@ -73,6 +73,7 @@ private:
 
 	int m_prescaler;
 
+	unsigned char layer;
 
 public:
 	int m_ledFrequency;
