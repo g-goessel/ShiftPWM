@@ -13,6 +13,8 @@
 // BE CAREFULL and make sure all the pins are avaible
 const char nbr_layers = 4;
 const char layer_1_pin = 2;
+
+
 // This potentiometer allows us to manually control the max intensity
 // It must be plugged to an analog input
 // For the change to be effective you need to reset the board
