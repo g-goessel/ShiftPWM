@@ -72,7 +72,6 @@ void setup(){
 
 
      ShiftPWM.SetAll(255);
-     pinMode(5,OUTPUT);
 
    }
 
@@ -81,7 +80,5 @@ void setup(){
    void loop(){
 
     ShiftPWM.SetRGB(0,255,255,255,2);
-    analogWrite(5,255*(analogRead(potentiometer_pin)/1023.0000));
-    delay(10);
 
   }
