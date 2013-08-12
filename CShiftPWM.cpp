@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <Arduino.h>
 
 CShiftPWM::CShiftPWM(int timerInUse, bool noSPI, int latchPin, int dataPin, int clockPin) :  // Constants are set in initializer list
-m_timer(timerInUse), m_noSPI(noSPI), m_latchPin(latchPin), m_dataPin(dataPin), m_clockPin(clockPin){
+m_timer(timerInUse), m_noSPI(noSPI), m_latchPin(latchPin), m_dataPin(dataPin), m_clockPin(clockPin),{
 	m_ledFrequency = 0;
 	m_maxBrightness = 0;
 	m_amountOfRegisters = 0;
@@ -115,27 +115,7 @@ void CShiftPWM::SetRGB(int led, unsigned char r,unsigned char g,unsigned char b,
 		m_PWMValues[led+skip+offset]					=( (unsigned int) r * m_maxBrightness)>>8;
 		m_PWMValues[led+skip+offset+m_pinGrouping]		=( (unsigned int) g * m_maxBrightness)>>8;
 		m_PWMValues[led+skip+offset+2*m_pinGrouping]	=( (unsigned int) b * m_maxBrightness)>>8;
-		switch(layer) {
-		case 0:
-		PORTD = B00111100;
-		break;
-
-		case 1:
-		PORTD = B00111000;
-		break;
-
-		case 2:
-		PORTD = B00110100;
-		break;
-
-		case 3:
-		PORTD = B00101100;
-		break;
-
-		case 4:
-		PORTD = B00011100;
-		break;
-	};
+		UseLayer();
 	}
 }
 
@@ -283,11 +263,11 @@ bool CShiftPWM::LoadNotTooHigh(void){
 
 }
 
-void CShiftPWM::Start(int ledFrequency, unsigned char maxBrightness){
+void CShiftPWM::Start(int ledFrequency, unsigned char maxBrightness, char potentiometer_pin){
 	// Configure and enable timer1 or timer 2 for a compare and match A interrupt.
 	m_ledFrequency = ledFrequency;
-	m_maxBrightness = maxBrightness;
-
+	// To make the potentiometer more precise with low brightness settings the variable part is elevates to square
+	m_maxBrightness = 255*pow(analogRead(potar)/1024.000,2);
 	pinMode(m_dataPin, OUTPUT);
 	pinMode(m_clockPin, OUTPUT);
 	pinMode(m_latchPin, OUTPUT);
@@ -593,4 +573,25 @@ void CShiftPWM::PrintInterruptLoad(void){
 		bitSet(TIMSK2,OCIE2A);
 	}
 	#endif
+}
+
+void CShiftPWM::SetLayers(){
+	for(char l=0; l<nbr_layers;l++){
+		pinMode(layer_1_pin+l,OUTPUT);
+	}
+}
+
+void CShiftPWM::UseLayer(){
+	if(ShiftPWM_invertLayersCtrl){
+	for(char l=0; l<nbr_layers;l++){
+		digitalWrite(layer_1_pin+l,HIGH);
+	}
+	digitalWrite(ligne,LOW);
+}
+    else{
+	for(char l=0; l<nbr_layers;l++){
+		digitalWrite(layer_1_pin+l,LOW);
+	}
+	digitalWrite(ligne,HIGH);
+}
 }

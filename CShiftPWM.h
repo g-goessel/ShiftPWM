@@ -29,8 +29,9 @@ public:
 	~CShiftPWM();
 
 public:
-	void Start(int ledFrequency, unsigned char max_Brightness);
+	void Start(int ledFrequency, unsigned char max_Brightness, int potentiometer_pin);
 	void SetAmountOfRegisters(unsigned char newAmount);
+	void SetLayers(void);
 	void SetPinGrouping(int grouping);
 	void PrintInterruptLoad(void);
 	void OneByOneSlow(void);
@@ -52,6 +53,7 @@ private:
 	void OneByOne_core(int delaytime);
 	bool IsValidPin(int pin);
 	void InitTimer1(void);
+	void UseLayer(void);
 	
 	#if defined(OCR3A)
 		// Arduino Leonardo or Micro (32u4)
@@ -83,6 +85,7 @@ public:
 	int m_pinGrouping;
 	unsigned char * m_PWMValues;
 	unsigned char m_counter;
+	const char potentiometer_pin;
 
 };
 
