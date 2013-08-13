@@ -61,7 +61,7 @@ int numRegisters = 1;
 int numRGBleds = numRegisters*8/3;
 
 void setup(){
-  Serial.begin(9600);
+  // Serial.begin(9600);
 
   // Sets the number of 8-bit registers that are used.
   ShiftPWM.SetAmountOfRegisters(numRegisters);
