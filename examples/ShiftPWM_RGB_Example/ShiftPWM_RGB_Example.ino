@@ -16,12 +16,12 @@
 // Clock pin is SCK (Uno and earlier: 13, Leonardo: ICSP 3, Mega: 52, Teensy 2.0: 1, Teensy 2.0++: 21)
 
 // You can choose the latch pin yourself.
-const int ShiftPWM_latchPin=8;
+const int ShiftPWM_latchPin=3;
 
 // ** uncomment this part to NOT use the SPI port and change the pin numbers. This is 2.5x slower **
-// #define SHIFTPWM_NOSPI
-// const int ShiftPWM_dataPin = 11;
-// const int ShiftPWM_clockPin = 13;
+#define SHIFTPWM_NOSPI
+const int ShiftPWM_dataPin = 2;
+const int ShiftPWM_clockPin = 4;
 
 
 // If your LED's turn on if the pin is low, set this to true, otherwise set it to false.
@@ -41,7 +41,7 @@ const bool ShiftPWM_balanceLoad = false;
 
 unsigned char maxBrightness = 255;
 unsigned char pwmFrequency = 75;
-int numRegisters = 6;
+int numRegisters = 1;
 int numRGBleds = numRegisters*8/3;
 
 void setup(){
