@@ -262,11 +262,11 @@ bool CShiftPWM::LoadNotTooHigh(void){
 
 }
 
-void CShiftPWM::Start(int ledFrequency, unsigned char maxBrightness, char potentiometer_pin){
+void CShiftPWM::Start(int ledFrequency, unsigned char maxBrightness, int m_potentiometer_pin){
 	// Configure and enable timer1 or timer 2 for a compare and match A interrupt.
 	m_ledFrequency = ledFrequency;
 	// To make the potentiometer more precise with low brightness settings the variable part is elevates to square
-	m_maxBrightness = maxBrightness*pow(analogRead(potentiometer_pin)/1024.000,2);
+	m_maxBrightness = maxBrightness*pow(analogRead(m_potentiometer_pin)/1024.000,2);
 	pinMode(m_dataPin, OUTPUT);
 	pinMode(m_clockPin, OUTPUT);
 	pinMode(m_latchPin, OUTPUT);

@@ -29,7 +29,7 @@ public:
 	~CShiftPWM();
 
 public:
-	void Start(int ledFrequency, unsigned char max_Brightness, char potentiometer_pin);
+	void Start(int ledFrequency, unsigned char max_Brightness, int m_potentiometer_pin);
 	void SetAmountOfRegisters(unsigned char newAmount);
 	void SetPinGrouping(int grouping);
 	void PrintInterruptLoad(void);
@@ -81,6 +81,7 @@ public:
 	int m_pinGrouping;
 	unsigned char * m_PWMValues;
 	unsigned char m_counter;
+	int potentiometer_pin;
 
 };
 

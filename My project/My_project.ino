@@ -18,7 +18,7 @@ const char layer_1_pin = 3;
 // This potentiometer allows us to manually control the max intensity
 // It must be plugged to an analog input
 // For the change to be effective you need to reset the board
-char potentiometer_pin = 5;
+int potentiometer_pin = A5;
 
 // ShiftPWM uses timer1 by default. To use a different timer, before '#include <ShiftPWM.h>', add
 #define SHIFTPWM_USE_TIMER2  // for Arduino Uno and earlier (Atmega328)
@@ -66,19 +66,16 @@ void setup(){
   // Sets the number of 8-bit registers that are used.
   ShiftPWM.SetAmountOfRegisters(numRegisters);
 
-  // SetPinGrouping allows flexibility in LED setup. 
-  // If your LED's are connected like this: RRRRGGGGBBBBRRRRGGGGBBBB, use SetPinGrouping(4).
-     ShiftPWM.SetPinGrouping(1); //This is the default, but I added here to demonstrate how to use the funtion
 
      ShiftPWM.Start(pwmFrequency,maxBrigthness,potentiometer_pin);
 
      for(int l=0; l<nbr_layers;l++){
     pinMode(layer_1_pin+l,OUTPUT);
-    digitalWrite(layer_1_pin+l,LOW);
+    digitalWrite(layer_1_pin+l,HIGH);
   }
 
 
-     ShiftPWM.SetAll(255);
+     ShiftPWM.SetAll(0);
 
    }
 
@@ -86,7 +83,7 @@ void setup(){
 
    void loop(){
 
-    ShiftPWM.SetRGB(0,255,25,255);
+    ShiftPWM.SetRGB(0,255,255,255);
 
     for(char l=0; l<nbr_layers;l++){
     digitalWrite(layer_1_pin+l,HIGH);
