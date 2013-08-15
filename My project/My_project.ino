@@ -12,13 +12,13 @@
 // You set the number of layers and the first controler pin, the others are following it
 // BE CAREFULL and make sure all the pins are avaible
 const char nbr_layers = 4;
-const char layer_1_pin = 2;
+const char layer_1_pin = 3;
 
 
 // This potentiometer allows us to manually control the max intensity
 // It must be plugged to an analog input
 // For the change to be effective you need to reset the board
-const char potentiometer_pin = 0;
+const char potentiometer_pin = 5;
 
 // ShiftPWM uses timer1 by default. To use a different timer, before '#include <ShiftPWM.h>', add
 #define SHIFTPWM_USE_TIMER2  // for Arduino Uno and earlier (Atmega328)
@@ -29,19 +29,19 @@ const char potentiometer_pin = 0;
 // Clock pin is SCK (Uno and earlier: 13, Leonardo: ICSP 3, Mega: 52, Teensy 2.0: 1, Teensy 2.0++: 21)
 
 // You can choose the latch pin yourself.
-const int ShiftPWM_latchPin=9;
+const int ShiftPWM_latchPin=1;
 
 // ** uncomment this part to NOT use the SPI port and change the pin numbers. This is 2.5x slower **
-// #define SHIFTPWM_NOSPI
-// const int ShiftPWM_dataPin = 11;
-// const int ShiftPWM_clockPin = 5;
+#define SHIFTPWM_NOSPI
+const int ShiftPWM_dataPin = 0;
+const int ShiftPWM_clockPin = 2;
 
 
 // If your LED's turn on if the pin is low, set this to true, otherwise set it to false.
 const bool ShiftPWM_invertOutputs = true; 
 
 // If your layers controllers turn on if the pin is low, set this to true, otherwise set it to false.
-const bool ShiftPWM_invertLayersCtrl = true; 
+const bool ShiftPWM_invertLayersCtrl = false; 
 
 // You can enable the option below to shift the PWM phase of each shift register by 8 compared to the previous.
 // This will slightly increase the interrupt load, but will prevent all PWM signals from becoming high at the same time.
@@ -81,6 +81,6 @@ void setup(){
 
    void loop(){
 
-    ShiftPWM.SetRGB(0,255,255,255,2);
+    ShiftPWM.SetRGB(0,255,25,255,2);
 
   }
