@@ -29,9 +29,8 @@ public:
 	~CShiftPWM();
 
 public:
-	void Start(int ledFrequency, unsigned char max_Brightness, int potentiometer_pin);
+	void Start(int ledFrequency, unsigned char max_Brightness, char potentiometer_pin);
 	void SetAmountOfRegisters(unsigned char newAmount);
-	void SetLayers(void);
 	void SetPinGrouping(int grouping);
 	void PrintInterruptLoad(void);
 	void OneByOneSlow(void);
@@ -44,7 +43,7 @@ public:
 	void SetGroupOf4(int group, unsigned char v0, unsigned char v1, unsigned char v2, unsigned char v3, int offset = 0);
 	void SetGroupOf5(int group, unsigned char v0, unsigned char v1, unsigned char v2, unsigned char v3, unsigned char v4, int offset = 0);
 
-	void SetRGB(int led, unsigned char r,unsigned char g,unsigned char b,unsigned char ligne, int offset = 0);
+	void SetRGB(int led, unsigned char r,unsigned char g,unsigned char b, int offset = 0);
 	void SetAllRGB(unsigned char r,unsigned char g,unsigned char b);
 	void SetHSV(int led, unsigned int hue, unsigned int sat, unsigned int val, int offset = 0);
 	void SetAllHSV(unsigned int hue, unsigned int sat, unsigned int val);
@@ -53,7 +52,6 @@ private:
 	void OneByOne_core(int delaytime);
 	bool IsValidPin(int pin);
 	void InitTimer1(void);
-	void UseLayer(void);
 	
 	#if defined(OCR3A)
 		// Arduino Leonardo or Micro (32u4)
@@ -75,8 +73,6 @@ private:
 
 	int m_prescaler;
 
-	unsigned char layer;
-
 public:
 	int m_ledFrequency;
 	unsigned char m_maxBrightness;
@@ -85,7 +81,6 @@ public:
 	int m_pinGrouping;
 	unsigned char * m_PWMValues;
 	unsigned char m_counter;
-	const char potentiometer_pin;
 
 };
 

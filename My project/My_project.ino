@@ -18,7 +18,7 @@ const char layer_1_pin = 3;
 // This potentiometer allows us to manually control the max intensity
 // It must be plugged to an analog input
 // For the change to be effective you need to reset the board
-const char potentiometer_pin = 5;
+char potentiometer_pin = 5;
 
 // ShiftPWM uses timer1 by default. To use a different timer, before '#include <ShiftPWM.h>', add
 #define SHIFTPWM_USE_TIMER2  // for Arduino Uno and earlier (Atmega328)
@@ -72,6 +72,11 @@ void setup(){
 
      ShiftPWM.Start(pwmFrequency,maxBrigthness,potentiometer_pin);
 
+     for(int l=0; l<nbr_layers;l++){
+    pinMode(layer_1_pin+l,OUTPUT);
+    digitalWrite(layer_1_pin+l,LOW);
+  }
+
 
      ShiftPWM.SetAll(255);
 
@@ -81,6 +86,39 @@ void setup(){
 
    void loop(){
 
-    ShiftPWM.SetRGB(0,255,25,255,2);
+    ShiftPWM.SetRGB(0,255,25,255);
+
+    for(char l=0; l<nbr_layers;l++){
+    digitalWrite(layer_1_pin+l,HIGH);
+  }
+  digitalWrite(layer_1_pin,LOW);
 
   }
+
+
+
+// NEED TO MOVE THEM TO LIB !!
+
+  void SetLayers(){
+  for(int l=0; l<nbr_layers;l++){
+    pinMode(layer_1_pin+l,OUTPUT);
+    digitalWrite(layer_1_pin+l,LOW);
+  }
+}
+
+
+
+void UseLayer(char layer){
+  if(ShiftPWM_invertLayersCtrl){
+  for(char l=0; l<nbr_layers;l++){
+    digitalWrite(layer_1_pin+l,HIGH);
+  }
+  digitalWrite(layer,LOW);
+}
+    else{
+  for(char l=0; l<nbr_layers;l++){
+    digitalWrite(layer_1_pin+l,LOW);
+  }
+  digitalWrite(layer,HIGH);
+}
+}
